@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever Valentine</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --hot-pink: #ff0054;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffc1cc 100%);
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Animated Floating Hearts Background */
+        .heart {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.2);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+       
+        .card {
+            background: var(--glass);
+            padding: 60px 40px;
+            border-radius: 80px; 
+            box-shadow: 0 20px 60px rgba(255, 77, 109, 0.15);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            position: relative;
+        }
+
+        .main-gif {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            margin-bottom: 50px;
+            border: 8px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-pink);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        /* Button Styling */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            min-height: 100px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+        }
+
+        #yesBtn {
+            background: var(--primary-pink);
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.4rem;
+            border-radius: 100px; /* Perfectly rounded pill */
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            z-index: 5;
+        }
+
+        #yesBtn:hover {
+            background: var(--hot-pink);
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background: #f1f1f1;
+            color: #999;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            border-radius: 100px; /* Perfectly rounded pill */
+            position: relative;
+            transition: 0.1s; /* Faster movement */
+        }
+
+        /* Celebration Screen */
+        #celebration {
+            display: none;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-gif {
+            width: 250px;
+            border-radius: 40px;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Background Hearts -->
+    <div id="heartContainer"></div>
+
+    <div class="card" id="mainCard">
+        <!-- Question Section -->
+        <div id="askSection">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW1jbGYydm1pOW51ZDI4cm83bjFhZ3JiYWwxb2tmcG9nMGh1b3c0NCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/K4VxEwUoA1JHf0BTy8/giphy.gif" alt="Cute" class="main-gif">
+            <h1>Pravs!!</h1>
+            <p> <br> Will you be my Valentine?</p>
+            
+            <div class="btn-container">
+                <button id="yesBtn">YES! ❤️</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <!-- Success Section -->
+        <div id="celebration">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHEzZ202ejJ5ZzdjMXV0bGV5N215cDh2YXBmNjZyaG1ubHY3NjFzNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/t3sZxY5zS5B0z5zMIz/giphy.gif" alt="Success" class="success-gif">
+            <h1>You make me the happiest man</h1>
+            <p>I love you to the moon and back. <br> Forever starts now! ✨</p>
+            <p> <p class="sub-text">P.S. You couldn't click 'No' anyway! 😉</p></p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Create Floating Hearts Background
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const icons = ['❤️', '💖', '💕', '✨', '🌸'];
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // 2. No Button Logic (Stay inside but jump)
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        let yesSize = 1.4; // Initial font size in rem
+
+        const handleNo = () => {
+            const card = document.getElementById('mainCard');
+            const cardRect = card.getBoundingClientRect();
+            
+            // Calculate random position strictly inside the card padding
+            const padding = 60;
+            const newX = Math.random() * (cardRect.width - noBtn.offsetWidth - padding * 2) + padding - (cardRect.width/2);
+            const newY = Math.random() * (cardRect.height - noBtn.offsetHeight - padding * 2) + padding - (cardRect.height/2);
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `calc(50% + ${newX}px)`;
+            noBtn.style.top = `calc(50% + ${newY}px)`;
+
+            // Make the "Yes" button grow bigger every time they try to click "No"
+            yesSize += 0.2;
+            yesBtn.style.fontSize = yesSize + 'rem';
+            yesBtn.style.padding = (18 + (yesSize * 2)) + 'px ' + (45 + (yesSize * 5)) + 'px';
+        };
+
+        noBtn.addEventListener('mouseover', handleNo);
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleNo();
+        });
+
+        // 3. Yes Button - Success Logic
+        yesBtn.addEventListener('click', () => {
+            document.getElementById('askSection').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            
+            // Full Screen Fireworks Confetti
+            var end = Date.now() + (5 * 1000);
+            var colors = ['#ff4d6d', '#ffffff', '#ffccd5'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        });
+    </script>
+</body>
+</html>
